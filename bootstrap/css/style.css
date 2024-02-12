@@ -1,0 +1,35 @@
+.btn-circle.btn-xl {
+    width: 40px;
+    height: 40px;
+    padding: 0px 0px;
+    border-radius: 60px;
+    font-size: 25px;
+    text-align: center;
+}
+.btn-circle.btn-del {
+    width: 25px;
+    height: 25px;
+    padding: 0px 0px;
+    border-radius: 60px;
+    font-size: 15px;
+}
+div[name='questionMarkText'] {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: justify;
+}
+.table > * > * > tr {
+    padding: 0;
+}
+.cellBareme{
+    display: flex;
+}
+.cellBaremeColor{
+    width: 100%;
+    text-align: center;
+}
