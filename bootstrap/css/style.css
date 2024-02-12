@@ -33,3 +33,6 @@ div[name='questionMarkText'] {
     width: 100%;
     text-align: center;
 }
+img.img-fluid {
+    max-width: 80%;
+}
