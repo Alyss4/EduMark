@@ -36,3 +36,7 @@ div[name='questionMarkText'] {
 img.img-fluid {
     max-width: 80%;
 }
+.btnAddListStudent,
+.btnAddStudent {
+    padding: 0%;
+}

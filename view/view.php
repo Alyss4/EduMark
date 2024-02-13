@@ -62,6 +62,13 @@ class View{
             </div>
         </section>
         <section id="saisieEleve">
+            <div style="text-align : center">
+                <p class="text-muted">Ou importer une liste d\'élève en appuyant ici
+                    <button class="btn btnAddListStudent" type="button" id="btnAddListStudent" onclick="btnAddListStudent()">
+                        <img src="img/add_button_blue.svg"/>
+                    </button>
+                </p>
+            </div>
             <div class="container rowInput">
                 <div class="mb-3 row">
                     <div class="col-5">
@@ -71,7 +78,9 @@ class View{
                         <input class="form-control" type="text" id="prenom0" name="prenom" placeholder="Prénom de l\'élève">
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-success btn-circle btn-xl" type="button" onclick="return actionAddStudent()" id="btnAddStudent">+</button>
+                        <button class="btn btnAddStudent" type="button" onclick="return actionAddStudent()" id="btnAddStudent">
+                            <img src="img/add_button_green.svg" alt="Add" />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -159,6 +168,7 @@ class View{
         <script src="js/event.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="js/startup-modern.js"></script>
+        <script src="https://kit.fontawesome.com/eb8d62d7f2.js" crossorigin="anonymous"></script>
         </body>
         </html>';
     }

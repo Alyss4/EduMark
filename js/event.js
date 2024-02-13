@@ -2,9 +2,11 @@ var compteurEtudiant = 0;
 var destination = document.getElementById("datagridContent");
 var newRow;
 
+
+
+document.getElementById('etudiant0').style.display = 'none';   
 function actionAddStudent() {
     newRow = document.getElementById('etudiant0').cloneNode(true);
-    document.getElementById('etudiant0').style.display = 'none';
     var newId = 'etudiant' + compteurEtudiant;
     while (document.getElementById(newId) !== null) {
         compteurEtudiant++;
@@ -77,5 +79,9 @@ function assignColors() {
     });
 }
 window.addEventListener('DOMContentLoaded', assignColors);
+
+function btnAddListStudent(){
+    alert('coucou :$ ');
+}
 
 
