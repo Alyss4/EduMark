@@ -1,10 +1,8 @@
 var compteurEtudiant = 0;
 var destination = document.getElementById("datagridContent");
 var newRow;
-
-
-
 document.getElementById('etudiant0').style.display = 'none';   
+
 function actionAddStudent() {
     newRow = document.getElementById('etudiant0').cloneNode(true);
     var newId = 'etudiant' + compteurEtudiant;

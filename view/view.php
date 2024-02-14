@@ -7,7 +7,6 @@ class View{
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-            <title>Accueil - EduMark</title>
             <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
             <link rel="stylesheet" href="bootstrap/css/style.css"
@@ -23,6 +22,7 @@ class View{
     public function accueil(){
         $this->entete();
         echo '
+        <title>Accueil - EduMark</title>
         <section class="py-4 py-md-5 my-5">
             <div class="container py-md-5">
                 <div class="row">
@@ -43,6 +43,7 @@ class View{
     public function writeReport($donneesCompetence,$lesMatieres, $leBareme){
         $this->entete();
         echo '
+        <title>Création d\'un Bulletin - EduMark</title>
         <section class="py-5 mt-5">
             <div class="container py-5" style="margin-right: 0px;margin-left: 0px;display: inline;">
                 <div class="row" style="margin-right: 0px;margin-left: 0px;">
@@ -91,7 +92,8 @@ class View{
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>';
-                            echo '<th>Nom</th>
+                            echo '
+                            <th>Nom</th>
                             <th>Prénom</th>';
                             foreach($donneesCompetence as $competence){
                                 echo'<th scope="col" style="text-align: -webkit-center" id="domaine'.$competence["id"].'">Domaine N°'.$competence["domaine"].'
