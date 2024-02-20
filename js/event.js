@@ -77,9 +77,15 @@ function assignColors() {
     });
 }
 window.addEventListener('DOMContentLoaded', assignColors);
+//Ajout d'un élève via input files 
+document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('excelFile').onchange = function(){
+        if(this.files && this.files.length > 0) {
+            document.getElementById('submitBtn').click();
+            console.log('Ok');
+        }
+    };
+});
 
-function btnAddListStudent(){
-    alert('coucou :$ ');
-}
 
 

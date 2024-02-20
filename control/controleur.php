@@ -14,10 +14,15 @@ class Controleur{
         (new View)->erreur404();
     }
     public function writeReport(){
+        $uploadModel = new Upload();
         $lesMatieres = (new Matiere)->getAllMatiere();
         $donneesCompetence = (new Competence)->getCompetence();
         $leBareme = (new Note)->getAllNote();
-        (new View)->writeReport($donneesCompetence,$lesMatieres,$leBareme);
+        if(isset($_POST["fileSubmit"])){
+            $uploadModel->uploadExcelData();
+            $lesEleves = $uploadModel->getEtudiant();
+        }
+        (new View)->writeReport($donneesCompetence,$lesMatieres,$leBareme, $lesEleves);
     }
 
 }

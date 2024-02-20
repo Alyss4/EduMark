@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 class Upload{
     private $pdo;
+    private $lesEleves = [];
     public function __construct(){
         $config = parse_ini_file("config.ini");
         try{
@@ -35,43 +36,51 @@ class Upload{
         }
         echo $message;
     }
-
-    private function insertStudentDatabase($data){
-        //Me permet de stocker les index des colonnes qui contiennent les noms et prénoms 
+    public function insertStudentDatabase($donneesExcel){
         $trouveNom = null;
         $trouvePrenom = null;
-        // Je parcours la première ligne du fichier excel
-        foreach($data[0] as $index => $value){
-            //Je verifie que chaques valeur est une chaine de caractères
-            if(is_string($value)) {           
-                //Si c'est une chaine de caractères je met en minuscule
-                $lowercaseValue = strtolower($value);
-                //Je vérifie que la chaine de caractères soit 'nom' ou 'prenom'
-                if ($lowercaseValue === 'nom') {
-                    // Si c'est le cas je stock l'index de la colonne dans la variable $trouveNom
-                    $trouveNom = $index;
-                } elseif ($lowercaseValue === 'prenom') {
-                    // Si c'est le cas je stock l'index de la colonne dans la variable $trouvePrenom
-                    $trouvePrenom = $index;
-                }
-            }
-            if($trouveNom !== null && $trouvePrenom !== null){
+        //Mon tableau élève me permettra d'afficher dans ma view 
+        $eleves = [];
+        // Parcourir chaque ligne pour trouver les index des colonnes "nom" et "prénom"
+        foreach($donneesExcel as $row){
+            // Rechercher les colonnes "nom" et "prénom" dans cette ligne
+            $trouveNom = array_search('Nom', $row);
+            $trouvePrenom = array_search('Prénom', $row);
+            // Si les index sont trouvés, arrêter la recherche
+            if($trouveNom !== false && $trouvePrenom !== false){
                 break;
             }
         }
-        $sql = "INSERT INTO eleve (nom, prenom, idClasse) VALUES (:nom, :prenom, 'lol')";
-        $req = $this->pdo->prepare($sql);
-        // Boucle à travers chaque ligne du fichier excel 
-        for ($i = 1; $i < count($data); $i++) {
-            // J'utilise les index des colonnes nom et prénom pour récupérer les valeurs correspondantes dans chaque ligne
-            $nom = $data[$i][$trouveNom];
-            $prenom = $data[$i][$trouvePrenom];
-            $req->bindParam(":nom", $nom);
-            $req->bindParam(":prenom", $prenom);
-            if (!$req->execute()) {
-                $message ="Erreur lors de l'insertion des données.";
+        // Si les colonnes "nom" et "prénom" sont trouvées
+        if($trouveNom !== false && $trouvePrenom !== false){
+            $sql = "INSERT INTO eleve (nom, prenom, idClasse) VALUES (:nom, :prenom, 'lol')";
+            $req = $this->pdo->prepare($sql);
+            foreach ($donneesExcel as $row){
+                // Vérifier que la ligne ne contient pas les valeurs de titre
+                if($row[$trouveNom] !== 'Nom' && $row[$trouvePrenom] !== 'Prénom'){
+                    // Vérifier que la ligne contient les valeurs de "nom" et "prénom"
+                    if(isset($row[$trouveNom]) && isset($row[$trouvePrenom])){
+                        $nom = $row[$trouveNom];
+                        $prenom = $row[$trouvePrenom];
+                        $eleves =['nom' => $nom, 'prénom' => $prenom];
+                        $req->bindParam(":nom", $nom);
+                        $req->bindParam(":prenom", $prenom);
+                        if (!$req->execute()){
+                            $message = "Erreur lors de l'insertion des données.";
+                        }else{
+                            $this->lesEleves[] = ['nom' => $nom, 'prenom' => $prenom];
+                        }
+                    }
+                }
             }
+        } else {
+            $message = "Les colonnes 'nom' et 'prenom' n'ont pas été trouvées dans le fichier Excel.";
         }
+        return $eleves;
+    }
+
+    public function getEtudiant(){
+        return $this->lesEleves;
     }
     
     
@@ -88,8 +97,4 @@ class Upload{
         ];
         return $errors[$code] ?? "Une erreur est survenue!";
     }
-    //Créer fonction insertStudentDataBase
-    //Faire une boucle pour chaque $data , récupérer le nom prénom classe
-    //SQL insertion des datas tables élèves
-    //Gestion des erreurs si erreurs
 }

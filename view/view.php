@@ -13,7 +13,7 @@ class View{
         </head>
         <body>
         <nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3 navbar-light" id="mainNav">
-            <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.php?action=accueil"><span>EduMark</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.php?action=accueil"><span>EduMark</span></a>
                 <div class="collapse navbar-collapse" id="navcol-1"></div>
             </div>
         </nav>';
@@ -51,12 +51,12 @@ class View{
                         <h2 class="display-6 fw-bold mb-4">Rédiger un <span class="underline">nouveau</span> bulletin ?</h2>
                         <p class="text-muted">Choisissez une matière.</p>
                         <div class="dropdown">
-                        <select class="btn btn-primary dropdown-toggle" aria-label="Choisir une matière">';
-                            foreach($lesMatieres as $laMatiere){
-                                echo '<option value='.$laMatiere["id"].'>'.$laMatiere["nomMatiere"].'</option>';
-                            };
-                            echo'
-                        </select>
+                            <select class="btn btn-primary dropdown-toggle" aria-label="Choisir une matière">';
+                                foreach($lesMatieres as $laMatiere){
+                                    echo '<option value='.$laMatiere["id"].'>'.$laMatiere["nomMatiere"].'</option>';
+                                };
+                                echo'
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -64,11 +64,15 @@ class View{
         </section>
         <section id="saisieEleve">
             <div style="text-align : center">
-                <p class="text-muted">Ou importer une liste d\'élève en appuyant ici
-                    <button class="btn btnAddListStudent" type="button" id="btnAddListStudent" onclick="btnAddListStudent()">
-                        <img src="img/add_button_blue.svg"/>
-                    </button>
-                </p>
+                <form method="post" enctype="multipart/form-data" id="form">
+                    <p class="text-muted">Ou importer une liste d\'élève en appuyant ici
+                        <label for="excelFile" class="btn-excel-upload">
+                            <img src="img/add_button_blue.svg" alt="Add">
+                        </label>
+                        <input id="excelFile" name="excelFile" type="file" class="btnAddListStudent">
+                        <button type="submit" name="fileSubmit" id="submitBtn" class="btnSubmit" >Valider</button>
+                    </p>
+                </form>
             </div>
             <div class="container rowInput">
                 <div class="mb-3 row">
