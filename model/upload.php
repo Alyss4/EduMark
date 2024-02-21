@@ -62,7 +62,6 @@ class Upload{
                     if(isset($row[$trouveNom]) && isset($row[$trouvePrenom])){
                         $nom = $row[$trouveNom];
                         $prenom = $row[$trouvePrenom];
-                        $eleves =['nom' => $nom, 'prénom' => $prenom];
                         $req->bindParam(":nom", $nom);
                         $req->bindParam(":prenom", $prenom);
                         if (!$req->execute()){
