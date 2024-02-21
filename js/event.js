@@ -1,6 +1,7 @@
 var compteurEtudiant = 0;
 var destination = document.getElementById("datagridContent");
 var newRow;
+//ma ligne de base que je masque afin de pouvoir la cloner sans modification
 document.getElementById('etudiant0').style.display = 'none';   
 
 function actionAddStudent() {
@@ -32,6 +33,7 @@ function actionAddStudent() {
     }
     return false;
 }
+
 function btnDelEleve(button){
     var row = button.parentNode.parentNode;
     var idEtudiant = row.id.substring(8);
@@ -77,15 +79,16 @@ function assignColors() {
     });
 }
 window.addEventListener('DOMContentLoaded', assignColors);
+
 //Ajout d'un élève via input files 
-document.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('excelFile').onchange = function(){
-        if(this.files && this.files.length > 0) {
-            document.getElementById('submitBtn').click();
-            console.log('Ok');
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('excelFile').onchange = function() {
+        if (this.files && this.files.length > 0) {
+            var submitBtn = document.getElementById('submitBtn')
+            submitBtn.click();
+            console.log("OKKKKKKKKKKKKKKKKKKKKKKK");
         }
     };
 });
-
 
 

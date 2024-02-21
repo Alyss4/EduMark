@@ -18,6 +18,7 @@ class Controleur{
         $lesMatieres = (new Matiere)->getAllMatiere();
         $donneesCompetence = (new Competence)->getCompetence();
         $leBareme = (new Note)->getAllNote();
+        $lesEleves = [];
         if(isset($_POST["fileSubmit"])){
             $uploadModel->uploadExcelData();
             $lesEleves = $uploadModel->getEtudiant();

@@ -40,7 +40,7 @@ class Upload{
         $trouveNom = null;
         $trouvePrenom = null;
         //Mon tableau élève me permettra d'afficher dans ma view 
-        $eleves = [];
+        $lesEleves = [];
         // Parcourir chaque ligne pour trouver les index des colonnes "nom" et "prénom"
         foreach($donneesExcel as $row){
             // Rechercher les colonnes "nom" et "prénom" dans cette ligne
@@ -76,7 +76,7 @@ class Upload{
         } else {
             $message = "Les colonnes 'nom' et 'prenom' n'ont pas été trouvées dans le fichier Excel.";
         }
-        return $eleves;
+        return $lesEleves;
     }
 
     public function getEtudiant(){

@@ -40,7 +40,7 @@ class View{
         </section>';
         $this->footer();
     }
-    public function writeReport($donneesCompetence,$lesMatieres, $leBareme){
+    public function writeReport($donneesCompetence,$lesMatieres, $leBareme,$lesEleves){
         $this->entete();
         echo '
         <title>Création d\'un Bulletin - EduMark</title>
@@ -64,6 +64,7 @@ class View{
         </section>
         <section id="saisieEleve">
             <div style="text-align : center">
+
                 <form method="post" enctype="multipart/form-data" id="form">
                     <p class="text-muted">Ou importer une liste d\'élève en appuyant ici
                         <label for="excelFile" class="btn-excel-upload">
@@ -73,7 +74,13 @@ class View{
                         <button type="submit" name="fileSubmit" id="submitBtn" class="btnSubmit" >Valider</button>
                     </p>
                 </form>
-            </div>
+
+            </div>';
+                foreach ($lesEleves as $eleve) {
+                    echo "<p>Nom: " . $eleve['nom'] . ", Prénom: " . $eleve['prenom'] . "</p>";
+                }
+            echo'
+            
             <div class="container rowInput">
                 <div class="mb-3 row">
                     <div class="col-5">
