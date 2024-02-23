@@ -55,6 +55,7 @@ class Upload{
         if($trouveNom !== false && $trouvePrenom !== false){
             $sql = "INSERT INTO eleve (nom, prenom, idClasse) VALUES (:nom, :prenom, 'lol')";
             $req = $this->pdo->prepare($sql);
+            $index = 1;
             foreach ($donneesExcel as $row){
                 // Vérifier que la ligne ne contient pas les valeurs de titre
                 if($row[$trouveNom] !== 'Nom' && $row[$trouvePrenom] !== 'Prénom'){
@@ -67,7 +68,8 @@ class Upload{
                         if (!$req->execute()){
                             $message = "Erreur lors de l'insertion des données.";
                         }else{
-                            $this->lesEleves[] = ['nom' => $nom, 'prenom' => $prenom];
+                            $this->lesEleves[] = ['index' => $index, 'nom' => $nom, 'prenom' => $prenom];
+                            $index++;
                         }
                     }
                 }

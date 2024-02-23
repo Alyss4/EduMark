@@ -80,15 +80,58 @@ function assignColors() {
 }
 window.addEventListener('DOMContentLoaded', assignColors);
 
-//Ajout d'un élève via input files 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('excelFile').onchange = function() {
-        if (this.files && this.files.length > 0) {
-            var submitBtn = document.getElementById('submitBtn')
-            submitBtn.click();
-            console.log("OKKKKKKKKKKKKKKKKKKKKKKK");
+//Ajout d'un élève via input files (Onclick automatique des l'upload)
+document.getElementById('excelFile').onchange = function() {
+    if (this.files && this.files.length > 0) {
+        var submitBtn = document.getElementById('submitBtn');
+        submitBtn.click();
+        event.preventDefault();
+        console.log("OKKKKKKKKKKKKKKKKKKKKKKK");
+
+        // Le code que vous souhaitez exécuter lorsque le bouton est cliqué
+        var indexEleves = document.getElementsByName('index');
+        var nomEleves = document.getElementsByName('nom');
+        var prenomEleves = document.getElementsByName('prenom');
+        for (var i = 0; i < indexEleves.length; i++) {
+            var index = indexEleves[i].value;
+            var nom = nomEleves[i].value;
+            var prenom = prenomEleves[i].value;
+            console.log("Index : " + index + " Nom : " + nom + " Prénom : " + prenom);
+            addStudentUpload(index,nom,prenom);
         }
-    };
-});
+    }
+};
+
+function addStudentUpload(index,nom,prenom){
+    var newRow = document.getElementById('etudiant0').cloneNode(true);
+    var compteurEtudiant = 1;
+    var newId = 'etudiant' + compteurEtudiant;
+    while (document.getElementById(newId) !== null) {
+        compteurEtudiant++;
+        newId = 'etudiant' + compteurEtudiant;
+    }
+    newRow.id = newId;
+    compteurEtudiant++;
+
+    if (nom === "" && prenom === "") {
+        alert('Veuillez remplir les champs textes ! ');
+    } else if (nom === "") {
+        alert('Veuillez saisir un nom pour votre élève ! ');
+    } else if (prenom === "") {
+        alert('Veuillez saisir un prénom pour votre élève ! ');
+    } else {
+        newRow.getElementsByTagName('td')[0].textContent = nom;
+        newRow.getElementsByTagName('td')[1].textContent = prenom;
+    document.getElementById("nom0").value = "";
+    document.getElementById("prenom0").value = "";
+
+    newRow.style.display = "table-row";
+    document.getElementById('destination').appendChild(newRow);
+    }
+    return false;
+}
+
+
+    
 
 

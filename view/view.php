@@ -77,10 +77,12 @@ class View{
 
             </div>';
                 foreach ($lesEleves as $eleve) {
-                    echo "<p>Nom: " . $eleve['nom'] . ", Prénom: " . $eleve['prenom'] . "</p>";
+                    echo "
+                    <input type='hidden' name='index' value=".$eleve['index']."/>
+                    <input type='hidden' name='nom' value=".$eleve['nom']."/>
+                    <input type='hidden' name='prenom' value=".$eleve['prenom']."/>";
                 }
             echo'
-            
             <div class="container rowInput">
                 <div class="mb-3 row">
                     <div class="col-5">
