@@ -4,8 +4,14 @@ var newRow;
 //ma ligne de base que je masque afin de pouvoir la cloner sans modification
 document.getElementById('etudiant0').style.display = 'none';   
 
-function actionAddStudent() {
-    newRow = document.getElementById('etudiant0').cloneNode(true);
+function actionAddStudent(){
+    var nomEleve = document.getElementById("nom0").value;
+    var prenomEleve = document.getElementById("prenom0").value;
+    actionAddStudentWithData(nomEleve, prenomEleve);
+}
+
+function actionAddStudentWithData(nomEleve, prenomEleve) {
+    var newRow = document.getElementById('etudiant0').cloneNode(true);
     var newId = 'etudiant' + compteurEtudiant;
     while (document.getElementById(newId) !== null) {
         compteurEtudiant++;
@@ -13,8 +19,7 @@ function actionAddStudent() {
     }
     newRow.id = newId;
     compteurEtudiant++;
-    var nomEleve = document.getElementById("nom0").value;
-    var prenomEleve = document.getElementById("prenom0").value;
+
     if (nomEleve === "" && prenomEleve === "") {
         alert('Veuillez remplir les champs textes ! ');
     } else if (nomEleve === "") {
@@ -84,21 +89,18 @@ document.getElementById('excelFile').onchange = function() {
     if (this.files && this.files.length > 0) {
         var submitBtn = document.getElementById('submitBtn');
         submitBtn.click();
-        event.preventDefault();
-        console.log("OKKKKKKKKKKKKKKKKKKKKKKK");
-
-        var indexEleves = document.getElementsByName('index');
-        var nomEleves = document.getElementsByName('nom');
-        var prenomEleves = document.getElementsByName('prenom');
-        for (var i = 0; i < indexEleves.length; i++) {
-            var index = indexEleves[i].value;
-            var nom = nomEleves[i].value;
-            var prenom = prenomEleves[i].value;
-            console.log("Index : " + index + " Nom : " + nom + " Prénom : " + prenom);
-            //addStudentUpload(index,nom,prenom);
-        }
     }
 };
+var indexEleves = document.getElementsByName('index');
+var nomEleves = document.getElementsByName('nom');
+var prenomEleves = document.getElementsByName('prenom');
+for (var i = 0; i < indexEleves.length; i++) {
+    var index = indexEleves[i].value.split('/').join('');
+    var nom = nomEleves[i].value.split('/').join(''); 
+    var prenom = prenomEleves[i].value.split('/').join(''); 
+    console.log("Index : " + index + " Nom : " + nom + " Prénom : " + prenom);
+    actionAddStudentWithData(nom, prenom);
+}
 
 
     
