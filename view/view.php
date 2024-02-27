@@ -181,6 +181,7 @@ class View{
             </div>
         </footer>
         <script src="js/event.js"></script>
+        <script src="js/export.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="js/startup-modern.js"></script>
         <script src="https://kit.fontawesome.com/eb8d62d7f2.js" crossorigin="anonymous"></script>
