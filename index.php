@@ -15,6 +15,9 @@ require("model/note.php");
 require("model/competence.php");
 require("model/matiere.php");
 require("model/upload.php");
+require("model/export.php");
+require("model/bulletin.php");
+require("model/eleve.php");
 
 if (isset($_GET["action"])){
     switch($_GET["action"]){
@@ -23,6 +26,9 @@ if (isset($_GET["action"])){
             break;
         case "writeReport":
             (new controleur)->writeReport();
+            break;
+        case "exportExcelData":
+                (new controleur)->exportExcelData();
             break;
         default:
             (new controleur)->erreur404();

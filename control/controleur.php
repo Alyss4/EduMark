@@ -19,11 +19,17 @@ class Controleur{
         $donneesCompetence = (new Competence)->getCompetence();
         $leBareme = (new Note)->getAllNote();
         $lesEleves = [];
+
         if(isset($_POST["fileSubmit"])){
             $uploadModel->uploadExcelData();
             $lesEleves = $uploadModel->getEtudiant();
         }
+        
         (new View)->writeReport($donneesCompetence,$lesMatieres,$leBareme, $lesEleves);
+    }
+    public function exportExcelData() {
+        $export = new Export();
+        $export->exportExcelData();
     }
 
 }

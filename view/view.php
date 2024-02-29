@@ -74,15 +74,26 @@ class View{
                             <button type="submit" name="fileSubmit" id="submitBtn" class="btnSubmit">Valider</button>
                     </p>
                 </form>
-
             </div>';
+
+
                 foreach ($lesEleves as $eleve) {
                     echo "
                     <input type='hidden' name='index' value=".$eleve['index']."/>
                     <input type='hidden' name='nom' value=".$eleve['nom']."/>
                     <input type='hidden' name='prenom' value=".$eleve['prenom']."/>";
                 }
+
+                
             echo'
+
+
+            <form id="dataTableForm" action="index.php?action=exportExcelData" method="post">
+                <input type="hidden" name="data" id="dataInputTableData">
+                <button type="button" onclick="sendTableToPHP()">Envoyer</button>
+            </form>
+
+
             <div class="container rowInput">
                 <div class="mb-3 row">
                     <div class="col-5">
@@ -127,7 +138,7 @@ class View{
                             '<td></td>
                             <td></td>';
                             foreach($donneesCompetence as $competence){
-                                echo'<td data-label="Attributes" id="result'.$competence["id"].'" scope="row">
+                                echo'<td data-label="Attributes" class="cellCompetence" id="result'.$competence["id"].'" scope="row">
                                         <div class="cellBareme">';
                                                 foreach($leBareme as $bareme){
                                                     echo '<div class="cellBaremeColor" id=note'.$bareme['id'].' onclick="changeContent(this)">'.$bareme['points'].'</div>';

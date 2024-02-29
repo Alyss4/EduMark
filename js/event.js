@@ -52,18 +52,21 @@ function btnDelEleve(button){
     }
     return false;
 }
+
 function questionMarkDetails(imgElement) {
     var questionMarkText = imgElement.parentNode.querySelector('[name="questionMarkText"]');
     if (questionMarkText){
         questionMarkText.style.display = 'block';
     }
 }
+
 function hideQuestionMarkDetails(imgElement) {
     var questionMarkText = imgElement.parentNode.querySelector('[name="questionMarkText"]');
     if (questionMarkText){
         questionMarkText.style.display = 'none';
     }
 }
+
 function changeContent(cellule){
     if (cellule.textContent === "X") {
         cellule.textContent = cellule.dataset.contenuOriginal || "";
@@ -72,6 +75,7 @@ function changeContent(cellule){
         cellule.textContent = "X";
     }
 }
+
 function assignColors() {
     var tableRows = document.querySelectorAll('#datagridContent tr');
     var colors = ['#C2D69B', '#95b3d7', '#fabf8f', '#d99594'];
@@ -83,6 +87,7 @@ function assignColors() {
         });
     });
 }
+
 window.addEventListener('DOMContentLoaded', assignColors);
 
 document.getElementById('excelFile').onchange = function() {
@@ -91,6 +96,8 @@ document.getElementById('excelFile').onchange = function() {
         submitBtn.click();
     }
 };
+
+// permet de récup donné eleve pour afficher dans le tableau 
 var indexEleves = document.getElementsByName('index');
 var nomEleves = document.getElementsByName('nom');
 var prenomEleves = document.getElementsByName('prenom');
