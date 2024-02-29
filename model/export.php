@@ -17,17 +17,14 @@ class Export {
 
     public function exportExcelData() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
             $jsondata = $_POST['data'];
             $lesDatas = json_decode($jsondata, true);
-        
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
             $spreadsheet->getDefaultStyle()
                         ->getFont()
                         ->setName('Arial')
                         ->setSize(12);
-        
             $spreadsheet->getActiveSheet()
                 ->setCellValue('A1', 'Nom')
                 ->setCellValue('B1', 'Prénom')
@@ -49,7 +46,6 @@ class Export {
             $spreadsheet->getActiveSheet()->mergeCells('AA1:AD1');
             $spreadsheet->getActiveSheet()->mergeCells('AE1:AH1');
             //LIGNES
-        
             $row = 2;
             foreach($lesDatas as $data){
                 $sheet->setCellValue('A'.$row, $data['nom']);
@@ -63,9 +59,7 @@ class Export {
                     }
                 }
                 $row++; 
-
             }
-        
             $writer = new Xlsx($spreadsheet);
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename="bulletin_eleve.xlsx"');

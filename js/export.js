@@ -9,7 +9,6 @@ function sendTableToPHP() {
             "prenom": tr.cells[1].innerText,
             "notes": {}
         };
-
         var competenceCells = tr.querySelectorAll('.cellCompetence');
         competenceCells.forEach(function(competence) {
             var noteCells = competence.querySelectorAll('.cellBaremeColor');
@@ -20,10 +19,8 @@ function sendTableToPHP() {
             });
             rowData.notes[cellIndex] = notes.join(", "); 
         });
-        console.log(rowData);
         data.push(rowData);
     }
-
     document.getElementById('dataInputTableData').value = JSON.stringify(data);
     document.getElementById('dataTableForm').submit();
 }

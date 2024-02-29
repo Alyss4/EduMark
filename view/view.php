@@ -18,7 +18,6 @@ class View{
             </div>
         </nav>';
     }
-
     public function accueil(){
         $this->entete();
         echo '
@@ -64,7 +63,6 @@ class View{
         </section>
         <section id="saisieEleve">
             <div style="text-align : center">
-
                 <form method="post" enctype="multipart/form-data" id="form">
                     <p class="text-muted">Ou importer une liste d\'élève en appuyant ici
                         <label for="excelFile" class="btn-excel-upload">
@@ -75,25 +73,13 @@ class View{
                     </p>
                 </form>
             </div>';
-
-
                 foreach ($lesEleves as $eleve) {
                     echo "
                     <input type='hidden' name='index' value=".$eleve['index']."/>
                     <input type='hidden' name='nom' value=".$eleve['nom']."/>
                     <input type='hidden' name='prenom' value=".$eleve['prenom']."/>";
                 }
-
-                
             echo'
-
-
-            <form id="dataTableForm" action="index.php?action=exportExcelData" method="post">
-                <input type="hidden" name="data" id="dataInputTableData">
-                <button type="button" onclick="sendTableToPHP()">Envoyer</button>
-            </form>
-
-
             <div class="container rowInput">
                 <div class="mb-3 row">
                     <div class="col-5">
@@ -156,14 +142,16 @@ class View{
                     </tbody>
                 </table>
             </div>
-            <div>
-                <button class="btn btn-primary shadow d-block mx-auto" type="submit">Exporter en PDF </button>
+            <div>            
+                <form id="dataTableForm" action="index.php?action=exportExcelData" method="post">
+                    <input type="hidden" name="data" id="dataInputTableData">
+                    <button class="btn btn-primary shadow d-block mx-auto" type="button" onclick="sendTableToPHP()">Exporter en PDF </button>
+                </form>
             </div>
         </div>   
     </section>';
     $this->footer();
 }
-    
     public function erreur404(){
         $this->entete();
         echo'
@@ -179,8 +167,7 @@ class View{
             </div>
         </section>';
         $this->footer();
-    }
-    
+    } 
     public function footer(){
         echo '
         <footer>

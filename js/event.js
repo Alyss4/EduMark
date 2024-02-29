@@ -1,15 +1,12 @@
 var compteurEtudiant = 0;
 var destination = document.getElementById("datagridContent");
 var newRow;
-//ma ligne de base que je masque afin de pouvoir la cloner sans modification
 document.getElementById('etudiant0').style.display = 'none';   
-
 function actionAddStudent(){
     var nomEleve = document.getElementById("nom0").value;
     var prenomEleve = document.getElementById("prenom0").value;
     actionAddStudentWithData(nomEleve, prenomEleve);
 }
-
 function actionAddStudentWithData(nomEleve, prenomEleve) {
     var newRow = document.getElementById('etudiant0').cloneNode(true);
     var newId = 'etudiant' + compteurEtudiant;
@@ -19,7 +16,6 @@ function actionAddStudentWithData(nomEleve, prenomEleve) {
     }
     newRow.id = newId;
     compteurEtudiant++;
-
     if (nomEleve === "" && prenomEleve === "") {
         alert('Veuillez remplir les champs textes ! ');
     } else if (nomEleve === "") {
@@ -38,7 +34,6 @@ function actionAddStudentWithData(nomEleve, prenomEleve) {
     }
     return false;
 }
-
 function btnDelEleve(button){
     var row = button.parentNode.parentNode;
     var idEtudiant = row.id.substring(8);
@@ -52,21 +47,18 @@ function btnDelEleve(button){
     }
     return false;
 }
-
 function questionMarkDetails(imgElement) {
     var questionMarkText = imgElement.parentNode.querySelector('[name="questionMarkText"]');
     if (questionMarkText){
         questionMarkText.style.display = 'block';
     }
 }
-
 function hideQuestionMarkDetails(imgElement) {
     var questionMarkText = imgElement.parentNode.querySelector('[name="questionMarkText"]');
     if (questionMarkText){
         questionMarkText.style.display = 'none';
     }
 }
-
 function changeContent(cellule){
     if (cellule.textContent === "X") {
         cellule.textContent = cellule.dataset.contenuOriginal || "";
@@ -75,7 +67,6 @@ function changeContent(cellule){
         cellule.textContent = "X";
     }
 }
-
 function assignColors() {
     var tableRows = document.querySelectorAll('#datagridContent tr');
     var colors = ['#C2D69B', '#95b3d7', '#fabf8f', '#d99594'];
@@ -87,17 +78,13 @@ function assignColors() {
         });
     });
 }
-
 window.addEventListener('DOMContentLoaded', assignColors);
-
 document.getElementById('excelFile').onchange = function() {
     if (this.files && this.files.length > 0) {
         var submitBtn = document.getElementById('submitBtn');
         submitBtn.click();
     }
 };
-
-// permet de récup donné eleve pour afficher dans le tableau 
 var indexEleves = document.getElementsByName('index');
 var nomEleves = document.getElementsByName('nom');
 var prenomEleves = document.getElementsByName('prenom');
@@ -105,7 +92,6 @@ for (var i = 0; i < indexEleves.length; i++) {
     var index = indexEleves[i].value.split('/').join('');
     var nom = nomEleves[i].value.split('/').join(''); 
     var prenom = prenomEleves[i].value.split('/').join(''); 
-    console.log("Index : " + index + " Nom : " + nom + " Prénom : " + prenom);
     actionAddStudentWithData(nom, prenom);
 }
 
