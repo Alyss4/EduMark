@@ -27,7 +27,7 @@ if (isset($_GET["action"])){
         case "writeReport":
             (new controleur)->writeReport();
             break;
-        case "exportExcelData":
+            case "exportExcelData":
                 (new controleur)->exportExcelData();
             break;
         default:

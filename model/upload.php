@@ -13,7 +13,6 @@ class Upload{
             echo $e->getMessage();
         }
     }
-
     public function uploadExcelData(){
         if (!isset($_POST["fileSubmit"])) {
             return;
@@ -23,7 +22,6 @@ class Upload{
         if ($file_error === UPLOAD_ERR_OK) {
             $file = $_FILES["excelFile"]["tmp_name"];
             $mimeType = mime_content_type($file);
-    
             if (in_array($mimeType, ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])) {
                 $tableur = IOFactory::load($file);
                 $contenuFeuille = $tableur->getActiveSheet();
@@ -66,11 +64,9 @@ class Upload{
         }
         return $lesEleves;
     }
-
     public function getEtudiant(){
-        return $this->lesEleves; // me permet de renvoyer les eleves dans mn input type hidden afin de les mettre dans mon tableau js 
+        return $this->lesEleves;
     }
-    
     private function getUploadErrorMessage($code) {
         $errors = [
             UPLOAD_ERR_OK => "Le fichier Excel a été traité avec succès.",

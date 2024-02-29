@@ -2,6 +2,7 @@
 require 'C:\xampp\htdocs\EduMark\vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Export {
     private $pdo;
@@ -15,8 +16,9 @@ class Export {
         }
     }
 
-    public function exportExcelData() {
+    public function exportExcelData($donneesCompetence) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $donneesCompetence = (new Competence)->getCompetence();
             $jsondata = $_POST['data'];
             $lesDatas = json_decode($jsondata, true);
             $spreadsheet = new Spreadsheet();
@@ -25,17 +27,20 @@ class Export {
                         ->getFont()
                         ->setName('Arial')
                         ->setSize(12);
-            $spreadsheet->getActiveSheet()
-                ->setCellValue('A1', 'Nom')
-                ->setCellValue('B1', 'Prénom')
-                ->setCellValue('C1','lol')
-                ->setCellValue('G1','lol')
-                ->setCellValue('K1','lol')
-                ->setCellValue('O1','lol')
-                ->setCellValue('S1','lol')
-                ->setCellValue('W1','lol')
-                ->setCellValue('AA1','lol')
-                ->setCellValue('AE1','lol');
+    
+            // Ajouter les compétences dans des cellules distinctes
+            $sheet->setCellValue('A1', 'Nom');
+            $sheet->setCellValue('B1', 'Prénom');
+            $sheet->setCellValue('C1', $donneesCompetence[0]['designation']);
+            $sheet->setCellValue('G1', $donneesCompetence[1]['designation']);
+            $sheet->setCellValue('K1', $donneesCompetence[2]['designation']);
+            $sheet->setCellValue('O1', $donneesCompetence[3]['designation']);
+            $sheet->setCellValue('S1', $donneesCompetence[4]['designation']);
+            $sheet->setCellValue('W1', $donneesCompetence[5]['designation']);
+            $sheet->setCellValue('AA1', $donneesCompetence[6]['designation']);
+            $sheet->setCellValue('AE1', $donneesCompetence[7]['designation']);
+            
+            
             //FUSIONER LES COLONNES 
             $spreadsheet->getActiveSheet()->mergeCells('C1:F1');
             $spreadsheet->getActiveSheet()->mergeCells('G1:J1');

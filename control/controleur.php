@@ -26,8 +26,9 @@ class Controleur{
         (new View)->writeReport($donneesCompetence,$lesMatieres,$leBareme, $lesEleves);
     }
     public function exportExcelData() {
+        $donneesCompetence = (new Competence)->getCompetence();
         $export = new Export();
-        $export->exportExcelData();
+        $export->exportExcelData($donneesCompetence);
     }
 
 }
