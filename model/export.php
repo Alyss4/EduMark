@@ -1,5 +1,5 @@
 <?php
-require 'C:\xampp\htdocs\EduMark\vendor/autoload.php';
+require 'C:\wamp64\www\EduMark\vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -25,12 +25,39 @@ class Export {
             $sheet = $spreadsheet->getActiveSheet();
             $spreadsheet->getDefaultStyle()
                         ->getFont()
-                        ->setName('Arial')
+                        ->setName('Calibri')
                         ->setSize(12);
     
             // Ajouter les compétences dans des cellules distinctes
             $sheet->setCellValue('A1', 'Nom');
             $sheet->setCellValue('B1', 'Prénom');
+            $indexCol = ['C','G','K','O','S','W','AA','AE'];
+            foreach($donneesCompetence as $index => $donnees){
+                if($index < count($indexCol)){
+                    $col = $indexCol[$index];
+                    $sheet->setCellValue($col.'1', $donnees['designation']);
+            
+                    // Définir la largeur de la colonne
+                    $sheet->getColumnDimension($col)->setWidth(30);
+                    
+                    // Définir la hauteur de la ligne
+                    $sheet->getRowDimension(1)->setRowHeight(180);
+            
+                    // Définir le "Wrap Text" sur true pour que le texte s'adapte à la taille de la cellule
+                    $sheet->getStyle($col.'1')->getAlignment()->setWrapText(true);
+            
+                    // Définir la taille de la police et l'orientation du texte
+                    $style = $sheet->getStyle($col.'1');
+                    $font = $style->getFont();
+                    $font->setSize(15);
+                    $style->setFont($font);
+                    
+                    $alignment = $style->getAlignment();
+                    $alignment->setTextRotation(90);
+                }
+
+            }
+            /*
             $sheet->setCellValue('C1', $donneesCompetence[0]['designation']);
             $sheet->setCellValue('G1', $donneesCompetence[1]['designation']);
             $sheet->setCellValue('K1', $donneesCompetence[2]['designation']);
@@ -39,7 +66,7 @@ class Export {
             $sheet->setCellValue('W1', $donneesCompetence[5]['designation']);
             $sheet->setCellValue('AA1', $donneesCompetence[6]['designation']);
             $sheet->setCellValue('AE1', $donneesCompetence[7]['designation']);
-            
+            */
             
             //FUSIONER LES COLONNES 
             $spreadsheet->getActiveSheet()->mergeCells('C1:F1');
