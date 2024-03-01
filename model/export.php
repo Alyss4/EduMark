@@ -2,6 +2,11 @@
 require 'C:\wamp64\www\EduMark\vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\Run;
+
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Export {
@@ -26,37 +31,39 @@ class Export {
             $spreadsheet->getDefaultStyle()
                         ->getFont()
                         ->setName('Calibri')
-                        ->setSize(12);
-    
+                        ->setSize(15);
+
+            foreach (range('B', 'AH') as $column) {
+                $sheet->getColumnDimension($column)->setWidth(31);
+            }
+            
             // Ajouter les compétences dans des cellules distinctes
             $sheet->setCellValue('A1', 'Nom');
             $sheet->setCellValue('B1', 'Prénom');
             $indexCol = ['C','G','K','O','S','W','AA','AE'];
             foreach($donneesCompetence as $index => $donnees){
-                if($index < count($indexCol)){
+                if($index < count($indexCol)) {
                     $col = $indexCol[$index];
-                    $sheet->setCellValue($col.'1', $donnees['designation']);
-            
-                    // Définir la largeur de la colonne
-                    $sheet->getColumnDimension($col)->setWidth(30);
-                    
-                    // Définir la hauteur de la ligne
-                    $sheet->getRowDimension(1)->setRowHeight(180);
-            
-                    // Définir le "Wrap Text" sur true pour que le texte s'adapte à la taille de la cellule
-                    $sheet->getStyle($col.'1')->getAlignment()->setWrapText(true);
-            
-                    // Définir la taille de la police et l'orientation du texte
-                    $style = $sheet->getStyle($col.'1');
-                    $font = $style->getFont();
-                    $font->setSize(15);
-                    $style->setFont($font);
-                    
-                    $alignment = $style->getAlignment();
-                    $alignment->setTextRotation(90);
-                }
+                    $domaineText = 'Domaine n°'.$donnees['domaine'];
+                    $designationText = $donnees['designation'];
 
+                    $richText = new RichText();
+
+                    $domaineRun = $richText->createTextRun($domaineText);
+                    $domaineRun->getFont()->setColor(new Color(Color::COLOR_RED));
+                    $domaineRun->getFont()->setSize(15);
+
+                    $designationRun = $richText->createTextRun("\n".$designationText);
+                    $designationRun->getFont()->setColor(new Color(Color::COLOR_BLACK));
+                    $designationRun->getFont()->setSize(15);
+
+                    $sheet->getCell($col.'1')->setValue($richText);
+                    $sheet->getStyle($col.'1')->getAlignment()->setTextRotation(90);
+                    $sheet->getRowDimension(1)->setRowHeight(506);
+                    $sheet->getStyle($col.'1')->getAlignment()->setWrapText(true);
+                }
             }
+            
             /*
             $sheet->setCellValue('C1', $donneesCompetence[0]['designation']);
             $sheet->setCellValue('G1', $donneesCompetence[1]['designation']);
